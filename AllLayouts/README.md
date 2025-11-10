@@ -1,3 +1,11 @@
+## Sources
+
+Some of the ASCII pinout diagrams in this repository are based on or adapted from publicly available resources:
+
+- [Busy Ducks – ASCII Art Arduino Pinouts](https://busyducks.com/ascii-art-arduino-pinouts/index.html)
+
+The diagrams have been visually and technically modified to match the documentation style and layout used in this project. Original versions are available at the link above.
+
 ## Arduino Nano        
 
                               ┌─────┐               
