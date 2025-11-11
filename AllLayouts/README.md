@@ -375,4 +375,47 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
                        \---------|USB-C|------------+
                                  +-----+
 
-####        
+####    
+
+# Teensy 3.2 (WORK IN PROGRESS)
+
+
+| Label | GPIO | PWM | ADC | Special      | Notes               |
+|-------|------|-----|-----|--------------|---------------------|
+| D0    | 0    | ✅   | ✅   | UART RX1     |                     |
+| D1    | 1    | ✅   | ✅   | UART TX1     |                     |
+| D2    | 2    | ✅   | ✅   |              |                     |
+| D3    | 3    | ✅   | ✅   |              |                     |
+| D4    | 4    | ✅   | ✅   |              |                     |
+| D5    | 5    | ✅   | ✅   |              |                     |
+| D6    | 6    | ✅   | ✅   |              |                     |
+| D7    | 7    | ✅   | ✅   |              |                     |
+| D8    | 8    | ✅   | ✅   |              |                     |
+| D9    | 9    | ✅   | ✅   |              |                     |
+| D10   | 10   | ✅   | ✅   | SPI CS       |                     |
+| D11   | 11   | ✅   | ✅   | SPI MOSI     |                     |
+| D12   | 12   | ✅   | ✅   | SPI MISO     |                     |
+| D13   | 13   | ✅   | ✅   | SPI SCK      | LED_BUILTIN         |
+| A0    | 14   | ❌   | ✅   |              | Analog input        |
+| A1    | 15   | ❌   | ✅   |              | Analog input        |
+| A2    | 16   | ❌   | ✅   |              | Analog input        |
+| A3    | 17   | ❌   | ✅   |              | Analog input        |
+| A4    | 18   | ❌   | ✅   | I²C SDA      |                     |
+| A5    | 19   | ❌   | ✅   | I²C SCL      |                     |
+| A6    | 20   | ❌   | ✅   |              |                     |
+| A7    | 21   | ❌   | ✅   |              |                     |
+| A8    | 22   | ❌   | ✅   |              |                     |
+| A9    | 23   | ❌   | ✅   |              |                     |
+| DAC   | —    | ❌   | ❌   | DAC          | Analog output       |
+| USB   | —    | ❌   | ❌   | μ (USB)      | Native USB device   |
+
+USB connector types:
+- **B** = USB-B (large square connector, e.g. Mega, Uno)
+- **b** = USB-B mini (e.g. Nano)
+- **μ** = USB Micro-B (e.g. Teensy 3.2)
+- **C** = USB-C (e.g. D1 Mini)
+
+These symbols indicate the physical USB connector type used on each board.
+They are shown in the diagram header or near the USB port for quick identification.
+
+#    
