@@ -9,27 +9,37 @@ The diagrams have been visually and technically modified to match the documentat
 ## Arduino Nano        
 
                               ┌─────┐               
-                 ┌────────────┤ USB ├────────────┐  
+                 ┌────────────┤USB-b├────────────┐  
                  │            └─────┘            │  
-        D13  ←   │ □ LED/D13          MISO/D12 □ │   → D12
-        3.3V ←   │ □ 3.3V             MOSI/D11 □~│   → D11
-       V.ref ←   │ □ V.ref       ⎯⎯⎯    SS/D10 □~│   → D10
-        A0   ←   │ □ A0         ╱ N ╲       D9 □~│   → D9
-        A1   ←   │ □ A1        ╱  A  ╲      D8 □ │   → D8
-        A2   ←   │ □ A2        ╲  N  ╱      D7 □ │   → D7
-        A3   ←   │ □ A3         ╲_0_/       D6 □~│   → D6
-        A4   ←   │ □ SDA/A4                 D5 □~│   → D5
-        A5   ←   │ □ SCL/A5                 D4 □ │   → D4
+        D13  ←   │ □ LED/D13/SCK      MISO/D12 □ │   → D12
+        3.3V ←   │ □ 3.3V        ^    MOSI/D11 □~│   → D11
+       V.ref ←   │ □ V.ref      ╱ ╲     SS/D10 □~│   → D10
+        A0   ←   │ □ A0        ╱ N ╲        D9 □~│   → D9
+        A1   ←   │ □ A1       ╱  A  ╲       D8 □ │   → D8
+        A2   ←   │ □ A2       ╲  N  ╱       D7 □ │   → D7
+        A3   ←   │ □ A3        ╲ O ╱        D6 □~│   → D6
+        A4   ←   │ □ SDA/A4     ╲ ╱         D5 □~│   → D5
+        A5   ←   │ □ SCL/A5      v          D4 □ │   → D4
         A6   ←   │ □ A6                INT1/D3 □~│   → D3
-        A7   ←   │ □ A7                INT0/D2 □ │   → D2
-        5V   ←   │ □ 5V                    GND □ │   → GND
+        A7   ←   │ □ A7          ●     INT0/D2 □ │   → D2
+        5V   ←   │ □ 5V       RST BTN      GND □ │   → GND
         RST  ←   │ □ RST                   RST □ │   → RST
-        GND  ←   │ □ GND   5V MI GND       TX1 □ │   → D0
-        Vin  ←   │ □ Vin  □  □  □          RX1 □ │   → D1
-                 │        □  □  □                │  
-                 │        MISO SCK RST           │  
-                 │        NANO-V3                │  
+        GND  ←   │ □ GND    5V MOSI GND TX1/D0 □ │   → D0
+        Vin  ←   │ □ Vin      □  □  □   RX1/D1 □ │   → D1
+                 │            □  □  □            │  
+                 │         MISO SCK RST          │  
+                 │                               │ 
+                 │ ATmega328P NANO-V3            │  
                  └───────────────────────────────┘  
+
+                  □ = Free pin (default)  
+                  ■ = Used pin  
+                  ▲ = Protocol pin (SPI, I2C, INT, UART)  
+                  ◊ = Reserved pin (sensor or expansion)  
+                  X = Do not use (reserved, led or unsafe)    
+                  ~ = PWM capable (append to pin label)
+
+
                               ┌─────┐
                  ┌────────────┤ USB ├────────────┐
                  │            └─────┘            │
@@ -80,8 +90,8 @@ The diagrams have been visually and technically modified to match the documentat
 
                             ┌─────┐                 ┌─────┐
                        ┌────┤ PWR ├─────────────────┤ USB ├──┐
-                       │    │     │                 └─────┘  │
-                       │    └─────┘GND/RST2  [ ] [ ]         │       
+                       │    │     │                 │  B  │  │
+                       │    └─────┘GND/RST2  [ ] [ ]└─────┘  │       
                        │         MOSI2/SCK2  [ ] [ ]  SCL[ ] │   →   C5
                        │            5V/MISO2 [ ] [ ]  SDA[ ] │   →   C4
                        │                             AREF[ ] │   →    
@@ -138,8 +148,8 @@ The diagrams have been visually and technically modified to match the documentat
         
                             ┌─────┐                 ┌─────┐
                        ┌────┤ PWR ├─────────────────┤ USB ├──┐
-                       │    │6–20V│                 └─────┘  │
-                       │    └─────┘  GND/RST2  □ □           │
+                       │    │6–20V│                 │  B  │  │
+                       │    └─────┘  GND/RST2  □ □  └─────┘  │
                        │           MOSI2/SCK2  □ □  SCL/D0 □ │   →   D0
                        │             5V/MISO2  □ □  SDA/D1 □ │   →   D1
                        │                              AREF □ │   →   AREF
