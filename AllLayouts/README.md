@@ -27,8 +27,8 @@ The diagrams have been visually and technically modified to match the documentat
           5V   ←   │ □ 5V      (RST BTN)     GND □ │   → GND
           RST  ←   │ □ RST                   RST □ │   → RST
           GND  ←   │ □ GND    5V MOSI GND TX1/D0 □ │   → D0
-          Vin  ←   │ □ Vin      □  □  □   RX1/D1 □ │   → D1
-                   │            □  □  □            │  
+          Vin  ←   │ □ Vin     □↑  □↑  □↑ RX1/D1 □ │   → D1
+                   │           □↓  □↓  □↓          │  
                    │         MISO SCK RST          │  
                    │                               │ 
                    │ ATmega328P NANO-V3            │  
@@ -129,7 +129,7 @@ The diagrams have been visually and technically modified to match the documentat
        A4/D18  ←   │ □ A4/D18    RST SCK MISO      TX>D1 □ │   → D1
        A5/D19  ←   │ □ A5/D19     □↑  □↑  □↑       RX<D0 □ │   → D0
                    │              □↓  □↓  □↓               │     
-                   ╰╮ UNO_R3    GND MOSI 5V ╭──────────────╯   
+                   ╰╮ UNO_R3    GND MOSI  5V╭──────────────╯   
                     ╰───────────────────────╯ 
 
                    □ = Free pin (default)  
@@ -182,9 +182,9 @@ The diagrams have been visually and technically modified to match the documentat
                         ┌─────┐                 ┌─────┐
                    ┌────┤ PWR ├─────────────────┤ USB ├──┐
                    │    │6–20V│                 │  B  │  │
-                   │    └─────┘  GND/RST2  □ □  └─────┘  │
-                   │           MOSI2/SCK2  □ □  SCL/D0 □ │   →   D0
-                   │             5V/MISO2  □ □  SDA/D1 □ │   →   D1
+                   │    └─────┘ GND/RST2 ←□  □→ └─────┘  │
+                   │          MOSI2/SCK2 ←□  □→ SCL/D0 □ │   →   D0
+                   │            5V/MISO2 ←□  □→ SDA/D1 □ │   →   D1
                    │                              AREF □ │   →   AREF
                 ←  │                               GND □ │   →   GND 
        N/C      ←  │ □ N/C                     LED/D13 □~│   →   D13
@@ -213,8 +213,8 @@ The diagrams have been visually and technically modified to match the documentat
        A13/D67  ←  │ □ A13/D67        I2C-SCL/INT2/D21 □ │   →   D21
        A14/D68  ←  │ □ A14/D68                           │
        A15/D69  ←  │ □ A15/D69     RST SCK MISO          │   ← □ 22 = D22/A0    ← □ 23 = D23/A1         
-                   │           ICSP □   □   □            │   ← □ 24 = D24/A2    ← □ 25 = D25/A3         
-                   │                □   □   □            │   ← □ 26 = D26/A4    ← □ 27 = D27/A5         
+                   │           ICSP □↑  □↑  □↑           │   ← □ 24 = D24/A2    ← □ 25 = D25/A3         
+                   │                □↓  □↓  □↓           │   ← □ 26 = D26/A4    ← □ 27 = D27/A5         
                    │               GND MOSI 5V           │   ← □ 28 = D28/A6    ← □ 29 = D29/A7         
                    │                  ● (RST BTN)        │   ← □ 30 = D30       ← □ 31 = D31         
                    │ G                                   │   ← □ 32 = D32       ← □ 33 = D33         
