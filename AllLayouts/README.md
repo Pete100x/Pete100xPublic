@@ -89,34 +89,44 @@ The diagrams have been visually and technically modified to match the documentat
                  +-------------------------------+
 		 
 ## Arduino Uno R3 ATmega328P
+												  
+                         ┌─────┐                  ┌─────┐
+                    ┌────┤ PWR ├──────────────────┤ USB ├──┐
+                    │    │6–20V│                  │  B  │ ●│RST BTN
+                    │    └─────┘ GND/RST2 □  □    └─────┘  │       
+                    │          MOSI2/SCK2 □  □ SCL/A5/D19□ │   → A5/D19
+                    │            5V/MISO2 □  □ SDA/A4/D18□ │   → A4/D18
+                    │                                AREF□ │   → AREF
+                    │                                 GND□ │   → GND
+        N/C     ←   │ □N/C                    LED/SCK/D13□ │   → D13
+        IOREF   ←   │ □IOREF                     MISO/D12□ │   → D12
+        RST     ←   │ □RST                       MOSI/D11□~│   → D11
+        3V3     ←   │ □3V3     ┌───┐                  D10□~│   → D10
+        5V      ←   │ □5V      │ A │                   D9□~│   → D9
+        GND     ←   │ □GND     │ R │                   D8□ │   → D8
+        GND     ←   │ □GND     │ D │                       │       
+        Vin     ←   │ □Vin     │ U │                   D7□ │   → D7
+                    │          │ I │                   D6□~│   → D6
+        A0/D14  ←   │ □A0/D14  │ N │                   D5□~│   → D5
+        A1/D15  ←   │ □A1/D15  │ O │                   D4□ │   → D4
+        A2/D16  ←   │ □A2/D16  └───┘              INT1/D3□~│   → D3
+        A3/D17  ←   │ □A3/D17                     INT0/D2□ │   → D2
+        A4/D18  ←   │ □A4/D18    RST SCK MISO       TX>D1□ │   → D1
+        A5/D19  ←   │ □A5/D19     □   □   □         RX<D0□ │   → D0
+                    │             □   □   □                │     
+                    │  UNO_R3    GND MOSI 5V ╭─────────────╯   
+                     ╲──────────────────────╱  
 
-                            ┌─────┐                 ┌─────┐
-                       ┌────┤ PWR ├─────────────────┤ USB ├──┐
-                       │    │6–20V│                 │  B  │ ●│RST BTN
-                       │    └─────┘GND/RST2  [ ] [ ]└─────┘  │       
-                       │         MOSI2/SCK2  [ ] [ ]  SCL[ ] │   →   
-                       │            5V/MISO2 [ ] [ ]  SDA[ ] │   →   
-                       │                             AREF[ ] │   →    
-                       │                              GND[ ] │   →    
-        N/C        ←   │ [ ]N/C                    SCK/13[ ] │   →   
-        IOREF      ←   │ [ ]IOREF                 MISO/12[ ] │   →   
-        RST        ←   │ [ ]RST                   MOSI/11[ ]~│   →   
-        3V3        ←   │ [ ]3V3    ┌───┐               10[ ]~│   →   
-        5v         ←   │ [ ]5v     │ A │                9[ ]~│   →   
-        GND        ←   │ [ ]GND    │ R │                8[ ] │   →   
-        GND        ←   │ [ ]GND    │ D │                     │       
-        Vin        ←   │ [ ]Vin    │ U │                7[ ] │   →   
-                       │           │ I │                6[ ]~│   →   
-        A0         ←   │ [ ]A0     │ N │                5[ ]~│   →   
-        A1         ←   │ [ ]A1     │ O │                4[ ] │   →   
-        A2         ←   │ [ ]A2     └───┘           INT1/3[ ]~│   →   
-        A3         ←   │ [ ]A3                     INT0/2[ ] │   →   
-        A4         ←   │ [ ]A4      RST SCK MISO     TX>1[ ] │   →   
-        A5         ←   │ [ ]A5      [ ] [ ] [ ]      RX<0[ ] │   →   
-                       │            [ ] [ ] [ ]              │     
-                       │  UNO_R3    GND MOSI 5V   ╭──────────╯   
-                        ╲────────────────────────╱
+                    □ = Free pin (default)  
+                    ■ = Used pin  
+                    ▲ = Protocol pin (SPI, I2C, INT, UART)  
+                    ◊ = Reserved pin (sensor or expansion)  
+                    X = Do not use (reserved, led or unsafe)    
+                    ~ = PWM capable (append to pin label)
+                    ● = Onboard reset button					
 
+**These symbols are used consistently across all board diagrams to clarify pin availability and function.  
+Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).**
 
                                                     +-----+
                        +----[PWR]-------------------| USB |--+
@@ -145,7 +155,7 @@ The diagrams have been visually and technically modified to match the documentat
                        |  UNO_R3    GND MOSI 5V  ____________/
                         \_______________________/
 		                
-## Arduino Mega 2560
+## Arduino Mega ATmega2560
 
         
                             ┌─────┐                 ┌─────┐
@@ -264,7 +274,7 @@ The diagrams have been visually and technically modified to match the documentat
                         \_______________________/  
 	                 
 
-## ESP8266 D1 Mini
+##  D1 Mini ESP8266
       
 
                       ╭────────────┬─────┬────────────╮ 
