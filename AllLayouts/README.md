@@ -3,17 +3,19 @@
 Some of the ASCII pinout diagrams in this repository are based on or adapted from publicly available resources:
 
 - [Busy Ducks – ASCII Art Arduino Pinouts](https://busyducks.com/ascii-art-arduino-pinouts/index.html)
+- [Arduino Nano by /u/plasticluthier](https://www.reddit.com/r/arduino/comments/3tb0d2/i_made_some_asciiart_arduinos_to_paste_in/cx5oyjp)
+- [SP-8266 D1-Mini by pete100x] 
 
 The diagrams have been visually and technically modified to match the documentation style and layout used in this project. Original versions are available at the link above.
 
-## Arduino Nano        
+## Arduino Nano-V3 ATmega328P       
 
                               ┌─────┐               
                  ┌────────────┤USB-b├────────────┐  
                  │            └─────┘            │  
         D13  ←   │ □ LED/D13/SCK      MISO/D12 □ │   → D12
         3.3V ←   │ □ 3.3V        ^    MOSI/D11 □~│   → D11
-       V.ref ←   │ □ V.ref      ╱ ╲     SS/D10 □~│   → D10
+        AREF ←   │ □ AREF       ╱ ╲     SS/D10 □~│   → D10
         A0   ←   │ □ A0        ╱ N ╲        D9 □~│   → D9
         A1   ←   │ □ A1       ╱  A  ╲       D8 □ │   → D8
         A2   ←   │ □ A2       ╲  N  ╱       D7 □ │   → D7
@@ -86,31 +88,31 @@ The diagrams have been visually and technically modified to match the documentat
                  | NANO-V3                       |
                  +-------------------------------+
 		 
-## Arduino Uno R3
+## Arduino Uno R3 ATmega328P
 
                             ┌─────┐                 ┌─────┐
                        ┌────┤ PWR ├─────────────────┤ USB ├──┐
-                       │    │     │                 │  B  │  │
+                       │    │6–20V│                 │  B  │ ●│RST BTN
                        │    └─────┘GND/RST2  [ ] [ ]└─────┘  │       
-                       │         MOSI2/SCK2  [ ] [ ]  SCL[ ] │   →   C5
-                       │            5V/MISO2 [ ] [ ]  SDA[ ] │   →   C4
+                       │         MOSI2/SCK2  [ ] [ ]  SCL[ ] │   →   
+                       │            5V/MISO2 [ ] [ ]  SDA[ ] │   →   
                        │                             AREF[ ] │   →    
                        │                              GND[ ] │   →    
-        N/C        ←   │ [ ]N/C                    SCK/13[A] │   →   B5
-        v.ref      ←   │ [ ]v.ref                 MISO/12[A] │   →   .
-        RST        ←   │ [ ]RST                   MOSI/11[A]~│   →   .
-        3V3        ←   │ [ ]3V3    ┌───┐               10[ ]~│   →   .
-        5v         ←   │ [ ]5v     │ A │                9[ ]~│   →   .
-        GND        ←   │ [ ]GND   ─│ R │─               8[B] │   →   B0
-        GND        ←   │ [ ]GND   ─│ D │─                    │       
-        Vin        ←   │ [ ]Vin   ─│ U │─               7[A] │   →   D7
-                       │          ─│ I │─               6[A]~│   →   .
-        A0         ←   │ [ ]A0    ─│ N │─               5[C]~│   →   .
-        A1         ←   │ [ ]A1    ─│ O │─               4[A] │   →   .
-        A2         ←   │ [ ]A2     └───┘           INT1/3[A]~│   →   .
-        A3         ←   │ [ ]A3                     INT0/2[ ] │   →   .
-        A4         ←   │ [ ]A4      RST SCK MISO     TX>1[ ] │   →   .
-        A5         ←   │ [ ]A5      [ ] [ ] [ ]      RX<0[ ] │   →   D0
+        N/C        ←   │ [ ]N/C                    SCK/13[ ] │   →   
+        IOREF      ←   │ [ ]IOREF                 MISO/12[ ] │   →   
+        RST        ←   │ [ ]RST                   MOSI/11[ ]~│   →   
+        3V3        ←   │ [ ]3V3    ┌───┐               10[ ]~│   →   
+        5v         ←   │ [ ]5v     │ A │                9[ ]~│   →   
+        GND        ←   │ [ ]GND    │ R │                8[ ] │   →   
+        GND        ←   │ [ ]GND    │ D │                     │       
+        Vin        ←   │ [ ]Vin    │ U │                7[ ] │   →   
+                       │           │ I │                6[ ]~│   →   
+        A0         ←   │ [ ]A0     │ N │                5[ ]~│   →   
+        A1         ←   │ [ ]A1     │ O │                4[ ] │   →   
+        A2         ←   │ [ ]A2     └───┘           INT1/3[ ]~│   →   
+        A3         ←   │ [ ]A3                     INT0/2[ ] │   →   
+        A4         ←   │ [ ]A4      RST SCK MISO     TX>1[ ] │   →   
+        A5         ←   │ [ ]A5      [ ] [ ] [ ]      RX<0[ ] │   →   
                        │            [ ] [ ] [ ]              │     
                        │  UNO_R3    GND MOSI 5V   ╭──────────╯   
                         ╲────────────────────────╱
