@@ -4,7 +4,7 @@ Some of the ASCII pinout diagrams in this repository are based on or adapted fro
 
 - [Busy Ducks – ASCII Art Arduino Pinouts](https://busyducks.com/ascii-art-arduino-pinouts/index.html)
 - [Arduino Nano by /u/plasticluthier](https://www.reddit.com/r/arduino/comments/3tb0d2/i_made_some_asciiart_arduinos_to_paste_in/cx5oyjp)
-- [SP-8266 D1-Mini by pete100x] 
+- [SP-8266 D1-Mini by pete100x](https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts) 
 
 The diagrams have been visually and technically modified to match the documentation style and layout used in this project. Original versions are available at the link above.
 
@@ -36,11 +36,11 @@ The diagrams have been visually and technically modified to match the documentat
 
                     □ = Free pin (default)  
                     ■ = Used pin  
-                    ▲ = Protocol pin (SPI, I2C, INT, UART)  
-                    ◊ = Reserved pin (sensor or expansion)  
+                    ▲ = Special pin (SPI, I2C, INT, UART, Pull-up, Pull-down)  
+                    ◊ = Caution needed pin (sensor, expansion, special requirements)  
                     X = Do not use (reserved, LED or unsafe)    
                     ~ = PWM capable (append to pin label)
-                    ● = Onboard reset button					
+                    ● = Onboard reset button				
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
     Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
@@ -133,8 +133,8 @@ The diagrams have been visually and technically modified to match the documentat
 
                     □ = Free pin (default)  
                     ■ = Used pin  
-                    ▲ = Protocol pin (SPI, I2C, INT, UART)  
-                    ◊ = Reserved pin (sensor or expansion)  
+                    ▲ = Special pin (SPI, I2C, INT, UART, Pull-up, Pull-down)  
+                    ◊ = Caution needed pin (sensor, expansion, special requirements)  
                     X = Do not use (reserved, LED or unsafe)    
                     ~ = PWM capable (append to pin label)
                     ● = Onboard reset button					
@@ -233,11 +233,11 @@ The diagrams have been visually and technically modified to match the documentat
 	               
                     □ = Free pin (default)  
                     ■ = Used pin  
-                    ▲ = Protocol pin (SPI, I2C, INT, UART)  
-                    ◊ = Reserved pin (sensor or expansion)  
+                    ▲ = Special pin (SPI, I2C, INT, UART, Pull-up, Pull-down)  
+                    ◊ = Caution needed pin (sensor, expansion, special requirements)  
                     X = Do not use (reserved, LED or unsafe)    
                     ~ = PWM capable (append to pin label)
-                    ● = Onboard reset button					
+                    ● = Onboard reset buttonn					
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
     Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
@@ -304,19 +304,18 @@ The diagrams have been visually and technically modified to match the documentat
 ####	               
 
 #  D1 Mini ESP8266
-      
-
+  
                     ╭────────────┬─────┬────────────╮ 
                     │            │ ESP │            │
                     │            │  8  │            │
-          RST   ←   │ □ RST      │  2  │       TX □~│  →   GPIO01
-          A0    ←   │ □ A0       │  6  │       RX □~│  →   GPIO03
-          D0    ←   │~□ D0/WAKE  │  6  │   SCL/D1 □~│  →   D1
-          D5    ←   │~□ D5/SCLK  └─────┘   SDA/D2 □~│  →   D2
-          D6    ←   │~□ D6/MISO          FLASH/D3 □~│  →   D3
-          D7    ←   │~□ D7/MOSI            LED/D4 X~│  →   D4
-          D8    ←   │~□ D8/CS                 GND □ │  →   GND
-          3.3V  ←   │ □ 3.3V                   5V □ │  →   5V
+           RST   ←  │ □ RST      │  2  │ TX/GPIO1 ▲ │  →   GPIO1
+         ADC0    ←  │ ◊ A0       │  6  │ RX/GPIO3 ▲ │  →   GPIO3
+    GPIO16/D0    ←  │ □ D0/WAKE  │  6  │   SCL/D1 □~│  →   D1/GPIO5
+    GPIO14/D5    ←  │~□ D5/SCLK  └─────┘   SDA/D2 □~│  →   D2/GPIO4
+    GPIO12/D6    ←  │~□ D6/MISO          FLASH/D3 ▲~│  →   D3/GPIO0
+    GPIO13/D7    ←  │~□ D7/MOSI            LED/D4 □~│  →   D4/GPIO2
+    GPIO15/D8    ←  │~▲ D8/CS                 GND □ │  →   GND
+           3.3V  ←  │ □ 3.3V                   5V □ │  →   5V
                     ╰─╮                             │
                      ●│(RST BTN) ┌─────┐  D1 MINI   │
                       └──────────┤USB-C├────────────┘
@@ -324,14 +323,33 @@ The diagrams have been visually and technically modified to match the documentat
         
                     □ = Free pin (default)  
                     ■ = Used pin  
-                    ▲ = Protocol pin (SPI, I2C, INT, UART)  
-                    ◊ = Reserved pin (sensor or expansion)  
+                    ▲ = Special pin (SPI, I2C, INT, UART, Pull-up, Pull-down)  
+                    ◊ = Caution needed pin (sensor, expansion, special requirements)  
                     X = Do not use (reserved, LED or unsafe)    
                     ~ = PWM capable (append to pin label)
                     ● = Onboard reset button					
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
     Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
+    
+    *Note: 
+	- Pin D3 (GPIO0) requires a 10 kΩ pull-up resistor to ensure proper boot.  
+    Avoid pressing the D3-connected button during boot, as it may trigger flash mode.  
+    - Pin D8 (GPIO15) may require a 10 kΩ pull-down resistor to prevent boot failure.  
+    Ensure the pin is LOW during startup if used.
+	
+	**Note on A0 (Analog Input):  
+    This board includes a built-in voltage divider on A0, allowing direct measurement of 0–3.3 V signals.
+    Confirmed linear readings with potentiometer suggest onboard divider is present on this board revision.	
+    No external divider is needed unless measuring voltages above 3.3V. Check if your board needs external divider for 1V input!
+
+	***Pin Mapping Note:  
+    All pin labels (D0–D8, A0, TX, RX) are mapped to their corresponding GPIO numbers for direct use in code.  
+    Use `GPIOx` in config files for clarity and compatibility across platforms.
+
+Diagram and documentation © Pete100x, shared under MIT License.  
+Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
+
 #
 
 ####	Original ASCII art below: D1 Mini
@@ -339,13 +357,13 @@ The diagrams have been visually and technically modified to match the documentat
                      _______________________________ 
                     /            | ESP |            \
                     |            |  8  |            |
-                    | [ ]RST     |  2  |      TX[ ]~|    GPIO01
-            ADC0    | [ ]A0      |  6  |      RX[ ]~|    GPIO03
-              D0    |~[ ]D0/WAKE |  6  |  SCL/D1[ ]~|    D1
-              D5    |~[ ]D5/SCLK |_____|  SDA/D2[ ]~|    D2
-              D6    |~[ ]D6/MISO        FLASH/D3[ ]~|    D3
-              D7    |~[ ]D7/MOSI              D4[ ]~|    D4
-              D8    |~[ ]D8/CS               GND[ ] |    GND
+             RST    | [ ]RST     |  2  |TX/GPIO1[ ] |    GPIO1
+              A0    | [ ]A0      |  6  |RX/GPIO3[ ] |    GPIO3
+       GPIO16/D0    | [ ]D0/WAKE |  6  |  SCL/D1[ ]~|    D1/GPIO5
+       GPIO14/D5    |~[ ]D5/SCLK |_____|  SDA/D2[ ]~|    D2/GPIO4
+       GPIO12/D6    |~[ ]D6/MISO        FLASH/D3[ ]~|    D3/GPIO0
+       GPIO13/D7    |~[ ]D7/MOSI          LED/D4[ ]~|    D4/GPIO2
+       GPIO15/D8    |~[ ]D8/CS               GND[ ] |    GND
             3.3V    | [ ]3.3V                 5V[ ] |    5V
                      \                              |
                       O (RST BTN)+-----+  D1 MINI   |
