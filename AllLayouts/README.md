@@ -24,7 +24,7 @@ The diagrams have been visually and technically modified to match the documentat
           A5   ←   │ □ SCL/A5      v          D4 □ │   → D4
           A6   ←   │ □ A6                INT1/D3 □~│   → D3
           A7   ←   │ □ A7          ●     INT0/D2 □ │   → D2
-          5V   ←   │ □ 5V       (RST BTN)    GND □ │   → GND
+          5V   ←   │ □ 5V      (RST BTN)     GND □ │   → GND
           RST  ←   │ □ RST                   RST □ │   → RST
           GND  ←   │ □ GND    5V MOSI GND TX1/D0 □ │   → D0
           Vin  ←   │ □ Vin      □  □  □   RX1/D1 □ │   → D1
