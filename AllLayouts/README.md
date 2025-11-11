@@ -44,7 +44,7 @@ The diagrams have been visually and technically modified to match the documentat
                    → = Pin used in code or config (logical direction only; all arrows point outward for consistency)				
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
-    Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
+    Special pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
 
 #
 
@@ -142,7 +142,7 @@ The diagrams have been visually and technically modified to match the documentat
                    → = Pin used in code or config (logical direction only; all arrows point outward for consistency)				
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
-    Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
+    Special pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
 
 #
 
@@ -243,7 +243,7 @@ The diagrams have been visually and technically modified to match the documentat
                    → = Pin used in code or config (logical direction only; all arrows point outward for consistency)				
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
-    Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
+    Special pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
 #
 
 
@@ -312,7 +312,7 @@ The diagrams have been visually and technically modified to match the documentat
                    │            │ ESP │            │
                    │            │  8  │            │
           RST   ←  │ □ RST      │  2  │ TX/GPIO1 ▲ │  →   GPIO1
-         ADC0   →  │ ◊ A0       │  6  │ RX/GPIO3 ▲ │  →   GPIO3
+         ADC0   →  │ ◊ A0       │  6  │ RX/GPIO3 ▲ │  ←   GPIO3
     GPIO16/D0   ←  │ □ D0/WAKE  │  6  │   SCL/D1 □~│  →   D1/GPIO5
     GPIO14/D5   ←  │~□ D5/SCLK  └─────┘   SDA/D2 □~│  →   D2/GPIO4
     GPIO12/D6   ←  │~□ D6/MISO          FLASH/D3 ▲~│  →   D3/GPIO0
@@ -334,7 +334,7 @@ The diagrams have been visually and technically modified to match the documentat
                    → = Pin used in code or config (logical direction only; all arrows point outward for consistency)				
 
     These symbols are used consistently across all board diagrams to clarify pin availability and function.  
-    Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
+    Special pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
     
     *Note: 
 	- Pin D3 (GPIO0) requires a 10 kΩ pull-up resistor to ensure proper boot.  
