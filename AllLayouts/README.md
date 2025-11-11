@@ -47,9 +47,9 @@ The diagrams have been visually and technically modified to match the documentat
 
 #
 
-###
+####
 
-         ````First Conversion to UniCode
+         First Conversion to UniCode
                                 ┌─────┐
                    ┌────────────┤ USB ├────────────┐
                    │            └─────┘            │
@@ -72,10 +72,10 @@ The diagrams have been visually and technically modified to match the documentat
                ←   │          MISO SCK RST         │
                ←   │ NANO-V3                       │
                    └───────────────────────────────┘
-		 ````
-###
+		
+####
  
-###	Original ASCII art below: Nano-v3
+####	Original ASCII art below: Nano-v3
 
 		  	 
                                 +-----+
@@ -100,7 +100,7 @@ The diagrams have been visually and technically modified to match the documentat
                    |          MISO SCK RST         |
                    | NANO-V3                       |
                    +-------------------------------+
-###		 
+####		 
 
 # Arduino Uno R3 ATmega328P
 												  
@@ -144,7 +144,7 @@ The diagrams have been visually and technically modified to match the documentat
 
 #
 
-###	Original ASCII art below: Uno R3
+####	Original ASCII art below: Uno R3
 
                                                 +-----+
                    +----[PWR]-------------------| USB |--+
@@ -172,7 +172,7 @@ The diagrams have been visually and technically modified to match the documentat
                    |            [ ] [ ] [ ]              |
                    |  UNO_R3    GND MOSI 5V  ____________/
                     \_______________________/
-###		                
+####		                
 
 # Arduino Mega ATmega2560
 
@@ -244,7 +244,7 @@ The diagrams have been visually and technically modified to match the documentat
 #
 
 
-###	Original ASCII art below; Arduino Mega
+####	Original ASCII art below; Arduino Mega
 
 
                                                  +-----+
@@ -300,7 +300,8 @@ The diagrams have been visually and technically modified to match the documentat
                     |                                     |                     50=MISO 51=MOSI
                     |     2560                ____________/                     52=SCK  53=SS 
                      \_______________________/  
-	               
+
+####	               
 
 #  D1 Mini ESP8266
       
@@ -333,7 +334,7 @@ The diagrams have been visually and technically modified to match the documentat
     Protocol pins (▲) may overlap with digital or analog pins depending on context (e.g. SDA = A4 = D18).
 #
 
-###	Original ASCII art below: D1 Mini
+####	Original ASCII art below: D1 Mini
 	
                      _______________________________ 
                     /            | ESP |            \
@@ -351,4 +352,4 @@ The diagrams have been visually and technically modified to match the documentat
                        \---------|USB-C|------------+
                                  +-----+
 
-###        
+####        
