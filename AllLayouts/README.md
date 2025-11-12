@@ -386,37 +386,6 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
 
 ####    
 
-# Teensy 3.2 (WORK IN PROGRESS)
-
-
-| Label | GPIO | PWM | ADC | Special      | Notes               |
-|-------|------|-----|-----|--------------|---------------------|
-| D0    | 0    | ✅   | ✅   | UART RX1     |                     |
-| D1    | 1    | ✅   | ✅   | UART TX1     |                     |
-| D2    | 2    | ✅   | ✅   |              |                     |
-| D3    | 3    | ✅   | ✅   |              |                     |
-| D4    | 4    | ✅   | ✅   |              |                     |
-| D5    | 5    | ✅   | ✅   |              |                     |
-| D6    | 6    | ✅   | ✅   |              |                     |
-| D7    | 7    | ✅   | ✅   |              |                     |
-| D8    | 8    | ✅   | ✅   |              |                     |
-| D9    | 9    | ✅   | ✅   |              |                     |
-| D10   | 10   | ✅   | ✅   | SPI CS       |                     |
-| D11   | 11   | ✅   | ✅   | SPI MOSI     |                     |
-| D12   | 12   | ✅   | ✅   | SPI MISO     |                     |
-| D13   | 13   | ✅   | ✅   | SPI SCK      | LED_BUILTIN         |
-| A0    | 14   | ❌   | ✅   |              | Analog input        |
-| A1    | 15   | ❌   | ✅   |              | Analog input        |
-| A2    | 16   | ❌   | ✅   |              | Analog input        |
-| A3    | 17   | ❌   | ✅   |              | Analog input        |
-| A4    | 18   | ❌   | ✅   | I²C SDA      |                     |
-| A5    | 19   | ❌   | ✅   | I²C SCL      |                     |
-| A6    | 20   | ❌   | ✅   |              |                     |
-| A7    | 21   | ❌   | ✅   |              |                     |
-| A8    | 22   | ❌   | ✅   |              |                     |
-| A9    | 23   | ❌   | ✅   |              |                     |
-| DAC   | —    | ❌   | ❌   | DAC          | Analog output       |
-| USB   | —    | ❌   | ❌   | μ (USB)      | Native USB device   |
 
 # Teensy 3.2 Pinout and Pad Reference
 
@@ -428,7 +397,7 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
         GND           ← │ □ GND     └─────┘      Vin □ │ → Vin          
         D0/RX1        ← │ □ D0           VUSB □ AGND □ │ → AGND         
         D1/TX1        ← │ □ D1                  3.3V □ │ → 3.3V         
-        D2            ← │ □ D2        #!4 A11 ◊  D23 □ │ → A9/D23       
+        D2/INT        ← │ □ D2        #!4 A11 ◊  D23 □ │ → A9/D23       
         D3/CANBTX     ← │~□ D3 #!5    #!4 A10 ◊  D22 □ │ → A8/D22       
         D4/CANBRX     ← │~□ D4 #!5       AREF □  D21 □ │ → A7/D21/(SS)/(RX1) 
         D5/(TX1)      ← │~□ D5                   D20 □ │ → A6/D20/(SS)    
@@ -447,27 +416,27 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
                                                                          
 				     
 ## Bottom Side Layout
-
-                                                                       
-                                                                        
-                                BOTTOM SIDE                            
-                              ┏╍╍╍╍╍╍╍╍╍╍╍╍╍┓                          
-                              ╎ ◊ ◊   ◊   ◊ ╎   #!1 Cut between pads if using external power for USB Device mode
-                              ╎ ○-○   ○   ○ ╎   #!2 Add 150μF Capacitor between pads for USB host mode          
-                              ╎ VUSB  150μF ╎   #!3 USB Data- and Data+
-                              ╎  #!1   #!2  ╎   #!4 Only 3.3V on Pins A10-A13(Pins A10-A11 and A12-A13 feature differential amplifiers)
-                              ╎   ◊     ◊   ╎   #!5 CAN Bus Transmit and Recieve                        
-                              ╎ D-○ #!3 ○D+ ╎                          
-                              ╎ #!4     #!4 ╎                          
-                       A13 ←↧ ╎◊○A13   A12○◊╎ ↧→ A12                   
-                      3.3V ←↧ ╎ ○3.3V  GND○ ╎ ↧→ GND                   
-                       D33 ←↧ ╎ ○D33   D24○ ╎ ↧→ D24                   
-                       D32 ←↧ ╎~○D32   D25○~╎ ↧→ D25                   
-             D31/A20/(TX2) ←↧ ╎ ○D31   D26○ ╎ ↧→ D26/A15/(RX2)         
-              D30/A19/SDA1 ←↧ ╎ ○D30   D27○ ╎ ↧→ D26/A15               
-              D29/A18/SCL1 ←↧ ╎ ○D29   D28○ ╎ ↧→ D26/A15               
-                              ┗╍╍╍╍╍╍╍╍╍╍╍╍╍┛                          
-                                                                        
+		    
+                                                                         
+                                                                          
+                                  BOTTOM SIDE                            
+                                ┏╍╍╍╍╍╍╍╍╍╍╍╍╍┓                          
+                                ╎ ◊ ◊   ◊   ◊ ╎   #!1 Cut between pads if using external power for USB Device mode
+                                ╎ ○-○   ○   ○ ╎   #!2 Add 150μF Capacitor between pads for USB host mode          
+                                ╎ VUSB  150μF ╎   #!3 USB Data- and Data+
+                                ╎  #!1   #!2  ╎   #!4 Only 3.3V on Pins A10-A13(Pins A10-A11 and A12-A13 feature differential amplifiers)
+                                ╎   ◊     ◊   ╎   #!5 CAN Bus Transmit and Recieve                        
+                                ╎ D-○ #!3 ○D+ ╎                          
+                                ╎ #!4     #!4 ╎                          
+                         A13 ←↧ ╎◊○A13   A12○◊╎ ↧→ A12                   
+                        3.3V ←↧ ╎ ○3.3V  GND○ ╎ ↧→ GND                   
+                         D33 ←↧ ╎ ○D33   D24○ ╎ ↧→ D24                   
+                         D32 ←↧ ╎~○D32   D25○~╎ ↧→ D25                   
+               D31/A20/(TX2) ←↧ ╎ ○D31   D26○ ╎ ↧→ D26/A15/(RX2)         
+                D30/A19/SDA1 ←↧ ╎ ○D30   D27○ ╎ ↧→ D26/A15               
+                D29/A18/SCL1 ←↧ ╎ ○D29   D28○ ╎ ↧→ D26/A15               
+                                ┗╍╍╍╍╍╍╍╍╍╍╍╍╍┛                          
+                                                                          
 
 ## Symbol Legend
 
@@ -494,6 +463,7 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
 - `#!3` USB Data- and Data+  
 - `#!4` Only 3.3V on Pins A10–A13 (Pins A10–A11 and A12–A13 feature differential amplifiers)  
 - `#!5` CAN Bus Transmit and Recieve
+- `#!6` All digital pins are Interrupt capable and have INPUT_PULLUP and INPUT_PULLDOWN built_in
 
 ## Board Metadata
 
