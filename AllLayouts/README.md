@@ -351,13 +351,16 @@ They are shown in the diagram header or near the USB port for quick identificati
     - Pin D8 (GPIO15) may require a 10 kΩ pull-down resistor to prevent boot failure.  
     Ensure the pin is LOW during startup if used.
 	
-	**Note on A0 (Analog Input):  
+	*Note on A0 (Analog Input):  
 	- Pin A0 is input only!
     This board includes a built-in voltage divider on A0, allowing direct measurement of 0–3.3 V signals.
     Confirmed linear readings with potentiometer suggest onboard divider is present on this board revision.	
     No external divider is needed unless measuring voltages above 3.3V. Check if your board needs external divider for 1V input!
 
-	***Pin Mapping Note:  
+	*Note TX and RX:
+	- GPIO1 and GPIO3 doesn't have any other function than UART serial send and receive data.
+	
+	*Pin Mapping Note:  
     All pin labels (D0–D8, A0, TX, RX) are mapped to their corresponding GPIO numbers for direct use in code.  
     Use `GPIOx` in config files for clarity and compatibility across platforms.
 
@@ -397,17 +400,17 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
         GND           ← │ □ GND     └─────┘      Vin □ │ → Vin          
         D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND         
         D1/TX1        ← │ □ D1                  3.3V □ │ → 3.3V         
-        D2/           ← │ □ D2     #!4 A11 ◊□ →  D23 □ │ → A9/D23       
-        D3/CANBTX     ← │~□ D3 #!5 #!4 A10 ◊□ →  D22 □ │ → A8/D22       
-        D4/CANBRX     ← │~□ D4 #!5     AREF □ →  D21 □ │ → A7/D21/(SS)/(RX1) 
-        D5/(TX1)      ← │~□ D5                   D20 □ │ → A6/D20/(SS)    
+        D2/           ← │ □ D2     #!4 A11 ◊□ →  D23 □~│ → A9/D23       
+        D3/CANBTX     ← │~□ D3 #!5 #!4 A10 ◊□ →  D22 □~│ → A8/D22       
+        D4/CANBRX     ← │~□ D4 #!5     AREF □ →  D21 □~│ → A7/D21/(SS)/(RX1) 
+        D5/(TX1)      ← │~□ D5                   D20 □~│ → A6/D20/(SS)    
         D6            ← │~□ D6    ┌────────┐     D19 □ │ → A5/D19/SCL   
         D7/(MOSI)/RX3 ← │ □ D7    │ TEENSY │     D18 □ │ → A4/D18/SDA   
         D8/(MISO)/RX3 ← │ □ D8    │  v3.2  │     D17 □ │ → A3/D17/(SDA)   
         D9/(SS)/RX2   ← │~□ D9    │        │     D16 □ │ → A2/D16/(SCL)   
         D10/SS/TX2    ← │~□ D10   │        │     D15 □ │ → A1/D15/(SS)    
         D11/MOSI      ← │ □ D11   └────────┘     D14 □ │ → A0/D14/(SCK)   
-        D12/MISO      ← │ □ D12        ●     LED/D13 □ │ → D13/SCK      
+        D12/MISO      ← │ □ D12        ● #!6 LED/D13◊□ │ → D13/SCK      
                         │          (RST BTN)           │                
                         │ VBat  3.3V  GND  Prog A14/DAC│                
                         │ ← □  ← □  ←  □  ←  □  ← □≈   │                
@@ -426,7 +429,7 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
                                 ╎ VUSB  150μF ╎   #!3 USB Data- and Data+
                                 ╎  #!1   #!2  ╎   #!4 Only 3.3V on Pins A10-A13(Pins A10-A11 and A12-A13 feature differential amplifiers)
                                 ╎   ◊     ◊   ╎   #!5 CAN Bus Transmit and Recieve                        
-                                ╎ D-○ #!3 ○D+ ╎   #!6 All digital pins are Interrupt capable and have INPUT_PULLUP and INPUT_PULLDOWN built_in                       
+                                ╎ D-○ #!3 ○D+ ╎   #!6 When using pin D13 as an input, ensure that the external signal can drive the LED when it is logic HIGH. Do not use pinMode INPUT_PULLUP with pin D13. 
                                 ╎  #!4   #!4  ╎                          
                          A13 ←↧ ╎◊○ A13 A12 ○◊╎ ↧→ A12                   
                         3.3V ←↧ ╎ ○ 3V3 GND ○ ╎ ↧→ GND                   
@@ -480,8 +483,9 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
 - `#!3` USB Data- and Data+  
 - `#!4` Only 3.3V on Pins A10–A13 (Pins A10–A11 and A12–A13 feature differential amplifiers)  
 - `#!5` CAN Bus Transmit and Recieve
-- `#!6` All digital pins are Interrupt capable and have INPUT_PULLUP and INPUT_PULLDOWN built_in
-
+- `#!6` When using pin D13 as an input, ensure that the external signal can drive the LED when it is logic HIGH. Do not use pinMode INPUT_PULLUP with pin D13.
+- *Note: All digital pins are Interrupt capable and have INPUT_PULLUP and INPUT_PULLDOWN built_in
+- *Note: PWM or ~ as Pulse Width Modulation capable pin. Use analogWrite(pin, value) to control duty cycle
 ## Board Metadata
 
 - MCU: NXP MK20DX256VLH7  
