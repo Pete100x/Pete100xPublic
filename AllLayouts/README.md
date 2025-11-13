@@ -485,7 +485,7 @@ Source: https://github.com/Pete100x/Pete100xPublic/tree/main/AllLayouts
 - `#!5` CAN Bus Transmit and Recieve
 - `#!6` When using pin D13 as an input, ensure that the external signal can drive the LED when it is logic HIGH. Do not use pinMode INPUT_PULLUP with pin D13.
 - *Note: All digital pins are Interrupt capable and have INPUT_PULLUP and INPUT_PULLDOWN built_in
-- *Note: PWM or ~ as Pulse Width Modulation capable pin. Use analogWrite(pin, value) to control duty cycle
+
 ## Board Metadata
 
 - MCU: NXP MK20DX256VLH7  
