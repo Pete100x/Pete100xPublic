@@ -1,5 +1,5 @@
 # Pete100xPublic
-This is where I Upload publicly available various documents
+## This is where I Upload publicly available various documents
 
 # 🧠 Modular Hardware Pinout Documentation
 
