@@ -19,7 +19,7 @@ This repository contains universal, parsable pinout diagrams for various microco
 | 🔹 Nano        | Compact 5V AVR board               | [Nano](./Nano/README.md)             |
 | 🔸 Uno         | Classic 5V AVR board               | [Uno](./Uno/README.md)               |
 | 🟢 Teensy 3.2  | ARM Cortex-M4, 3.3V, DAC capable   | [Teensy32](./Teensy32/README.md)     |
-| 🟠 Wemos D1 Mini | ESP8266 WiFi, 3.3V               | [WemosD1Mini](./WemosD1Mini/README.md) |
+| 🟠 ESP8266 D1 Mini | ESP8266 WiFi, 3.3V             | [ESP8266 D1 Mini](./ESP8266_D1_Mini/README.md) |
 | 🟣 Sunton CYB  | ESP32 with display, 3.3V           | [SuntonCYB](./SuntonCYB/README.md)   |
 
 ## 🧩 Symbol Legend
