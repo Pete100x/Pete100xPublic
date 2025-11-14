@@ -8,7 +8,7 @@
         GND           ← │ □ GND     └─────┘      Vin □ │ → Vin          
         D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND         
         D1/TX1        ← │ □ D1                  3.3V □ │ → 3.3V         
-        D2/           ← │ □ D2     #!4 A11 ◊□ →  D23 □~│ → A9/D23       
+        D2            ← │ □ D2     #!4 A11 ◊□ →  D23 □~│ → A9/D23       
         D3/CANBTX     ← │~□ D3 #!5 #!4 A10 ◊□ →  D22 □~│ → A8/D22       
         D4/CANBRX     ← │~□ D4 #!5     AREF □ →  D21 □~│ → A7/D21/(SS)/(RX1) 
         D5/(TX1)      ← │~□ D5                   D20 □~│ → A6/D20/(SS)    
