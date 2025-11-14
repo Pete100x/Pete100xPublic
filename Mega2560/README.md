@@ -8,7 +8,7 @@
                    │          MOSI2/SCK2 ←□  □→ SCL/D0 □ │   →   D0
                    │            5V/MISO2 ←□  □→ SDA/D1 □ │   →   D1
                    │                              AREF □ │   →   AREF
-                ←  │                               GND □ │   →   GND 
+                   │                               GND □ │   →   GND 
        N/C      ←  │ □ N/C                     LED/D13 □~│   →   D13
        IOREF    ←  │ □ IOREF                       D12 □~│   →   D12
        RST      ←  │ □ RST                         D11 □~│   →   D11
