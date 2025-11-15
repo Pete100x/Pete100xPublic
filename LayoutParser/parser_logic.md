@@ -1,5 +1,26 @@
 # 🧠 Parser Logic Reference
 
+## 🔹 Parserin perusasetukset
+
+Jokaisen parserin alkuun tarvitaan nämä rivit:
+
+```python
+import os
+import sys
+import re
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+BOARD_NAME = "Teensy32" # This is the folder where layout README.md is
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
+OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
+
+print(f"📂 Board: {BOARD_NAME}")
+print(f"📄 Reading from: {README_PATH}")
+print(f"📝 Writing to: {OUTPUT_PATH}")
+```
+
 ## 🔹 Lohkologiikka
 
 - Vasemman lohkon rakenne:
@@ -46,7 +67,6 @@
 
 D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND
 
-
 - Vasen lohko:
   - `CodeFunction = D0/RX1`
   - `PinLabel = D0`
@@ -65,11 +85,44 @@ D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND
   - `PinInOrOut = OUTPUT`
   - `BoardLocation = Right`
 
+
 ## 🔸 Visuaalisen kohinan suodatus (`VISUAL_NOISE`)
 
 - Poistetaan keskisegmentistä ennen fragmentointia
 - Kohinasymbolit:
   - `│`, `└`, `─`, `┘`, `╱`, `╲`, `━`, `┐`, `┌`, `┬`, `┼`, `┤`, `├`, `┴`
+
+## 🔸 Modulaarinen Markdown-taulukon generointi
+```python
+def generate_markdown_table(results, board_name, output_path):
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(f"# Pin and Direction Table: {board_name}\n\n")
+        f.write("| PinLine | BoardLocation | CodeFunction | PinInOrOut | PinStatus | HasPWM | PinLabel |\n")
+        f.write("|---------|----------------|--------------|------------|-----------|--------|----------|\n")
+        for r in results:
+            f.write(f"| {r['PinLine']} | {r['BoardLocation']} | {r['CodeFunction']} | {r['PinInOrOut']} | {r['PinStatus']} | {'✓' if r['HasPWM'] else ''} | {r['PinLabel']} |\n")
+```
+## 🔧 Päivitetty main()-funktio
+
+```python
+def main():
+    if not os.path.exists(README_PATH):
+        print(f"❌ README.md not found in {BOARD_NAME}")
+        return
+
+    all_results = []
+    with open(README_PATH, encoding="utf-8") as f:
+        line_counter = 1
+        for i, line in enumerate(f.readlines(), start=1):
+            parsed = parse_pin_line(line, line_counter)
+            if parsed:
+                all_results.extend(parsed)
+                line_counter += 1
+
+    generate_markdown_table(all_results, BOARD_NAME, OUTPUT_PATH)
+    print(f"\n✅ Table written to: {OUTPUT_PATH}")
+```
+
 
 ## 🧩 Parserin strategia
 
@@ -78,3 +131,57 @@ D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND
 - Function ja suunta poimitaan reunoista
 - Inside-pinnit tunnistetaan vain jos ne eivät ole reunoilta
 - Kaikki kentät nimetään loogisesti ja semanttisesti
+
+## 🔸 Config.h generointi: CodeFunction → PinLabel
+
+Kun käyttäjä muokkaa layoutia (`README.md`) ja merkitsee pinnin käytetyksi (`■`), voidaan generoida `#define`-rivi `config.h`-tiedostoon.
+
+### 🔹 Generoinnin ehdot
+
+- `PinStatus == "Used pin"`
+- `CodeFunction` on annettu
+- `PinLabel` on tunnistettu
+
+### 🔹 Esimerkki layoutista
+
+```
+D0/RX1 ← │ ■ D0
+```
+
+→ Parseri tunnistaa:
+
+- `PinLabel = D0`
+- `CodeFunction = D0/RX1`
+- `PinStatus = Used pin`
+
+→ Generoitu rivi `config.h`-tiedostoon: `#define RX1 D0`
+
+> Huom: Jos `CodeFunction` sisältää useita nimiä (`D0/RX1`), voidaan käyttää viimeistä (`RX1`) tai kaikkia, riippuen strategiasta.
+
+---
+
+### 🔹 Funktio: `generate_config_defines(results)`
+
+```python
+def generate_config_defines(results):
+    defines = []
+    for r in results:
+        if r["PinStatus"] == "Used pin" and r["CodeFunction"]:
+            names = r["CodeFunction"].split("/")
+            for name in names:
+                defines.append(f"#define {name.strip()} {r['PinLabel']}")
+    return defines
+```
+
+- Palauttaa listan `#define`-rivejä
+- Voidaan kirjoittaa tiedostoon `config.h` tai `BOARD_NAME_config.h`
+- Tukee useita nimiä per pinni
+
+---
+
+### 🔹 Tuleva laajennusmahdollisuus
+
+- Tuki `#ifdef BOARD_NAME`
+- Kommentit layoutista: `// Pin D0 used for RX1`
+- Automaattinen generointi kaikille layout-kansioille
+
