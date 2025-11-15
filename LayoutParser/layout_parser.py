@@ -6,9 +6,12 @@ import re
 sys.stdout.reconfigure(encoding='utf-8')
 
 BOARD_NAME = "Teensy32"
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))  # yksi taso ylöspäin
-README_PATH = os.path.join(BOARD_NAME, "README.md")
-OUTPUT_PATH = os.path.join(BOARD_NAME, f"{BOARD_NAME}.md")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # LayoutParser/
+BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Projektin juuri
+README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
+OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
+
+print("README_PATH:", README_PATH)
 
 PIN_STATE = {
     "□": "Free pin",

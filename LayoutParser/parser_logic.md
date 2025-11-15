@@ -1,5 +1,43 @@
 # 🧠 Parser Logic Reference
 
+## 🔹 Tiedostopolkujen resoluutio
+
+Parserin täytyy löytää oikea `README.md`-tiedosto layout-kansiosta. Tämä toimii riippumatta siitä, mistä hakemistosta parseri ajetaan.
+
+### 🔸 Polkulogiikka
+
+```python
+import os
+
+BOARD_NAME = "Teensy32"  # Tämä on layout-kansion nimi
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # esim. LayoutParser/
+BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # projektin juuri
+
+README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
+OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
+
+print("README_PATH:", README_PATH)
+assert os.path.exists(README_PATH), "README.md ei löytynyt!"
+```
+
+### 🔸 Esimerkki hakemistorakenteesta
+
+```
+projekti/
+├── LayoutParser/
+│   └── layout_parser.py
+├── Teensy32/
+│   ├── README.md
+│   └── Teensy32.md
+```
+
+### 🔸 Vinkki
+
+- Käytä `os.path.abspath()` varmistaaksesi että polut ovat absoluuttisia
+- Tämä estää virheet, jos parseria ajetaan eri hakemistosta (esim. VSCode, komentorivi)
+
+
 ## 🔹 Parserin perusasetukset
 
 Jokaisen parserin alkuun tarvitaan nämä rivit:
@@ -11,10 +49,7 @@ import re
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-BOARD_NAME = "Teensy32" # This is the folder where layout README.md is
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
-OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
+
 
 print(f"📂 Board: {BOARD_NAME}")
 print(f"📄 Reading from: {README_PATH}")
