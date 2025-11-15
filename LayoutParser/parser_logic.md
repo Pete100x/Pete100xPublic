@@ -1,30 +1,30 @@
 # 🧠 Parser Logic Reference
 
-## 🔹 Tiedostopolkujen resoluutio
+## 🔹 Path resolution for layout files
 
-Parserin täytyy löytää oikea `README.md`-tiedosto layout-kansiosta. Tämä toimii riippumatta siitä, mistä hakemistosta parseri ajetaan.
+The parser must locate the correct `README.md` file inside the layout folder, regardless of where the script is executed from.
 
-### 🔸 Polkulogiikka
+### 🔸 Path logic
 
 ```python
 import os
 
-BOARD_NAME = "Teensy32"  # Tämä on layout-kansion nimi
+BOARD_NAME = "Teensy32"  # Layout folder name, this is an example README.md board in same named folder
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # esim. LayoutParser/
-BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # projektin juuri
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # e.g. LayoutParser/
+BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Project root
 
 README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
 OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
 
 print("README_PATH:", README_PATH)
-assert os.path.exists(README_PATH), "README.md ei löytynyt!"
+assert os.path.exists(README_PATH), "README.md not found!"
 ```
 
-### 🔸 Esimerkki hakemistorakenteesta
+### 🔸 Example folder structure
 
 ```
-projekti/
+project/
 ├── LayoutParser/
 │   └── layout_parser.py
 ├── Teensy32/
@@ -32,10 +32,10 @@ projekti/
 │   └── Teensy32.md
 ```
 
-### 🔸 Vinkki
+### 🔸 Tips
 
-- Käytä `os.path.abspath()` varmistaaksesi että polut ovat absoluuttisia
-- Tämä estää virheet, jos parseria ajetaan eri hakemistosta (esim. VSCode, komentorivi)
+- Use `os.path.abspath()` to ensure paths are absolute
+- This prevents errors when running the parser from different working directories (e.g. VSCode, CLI)
 
 
 ## 🔹 Parserin perusasetukset
