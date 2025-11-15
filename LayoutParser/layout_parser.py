@@ -6,6 +6,7 @@ import re
 sys.stdout.reconfigure(encoding='utf-8')
 
 BOARD_NAME = "Teensy32"
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))  # yksi taso ylöspäin
 README_PATH = os.path.join(BOARD_NAME, "README.md")
 OUTPUT_PATH = os.path.join(BOARD_NAME, f"{BOARD_NAME}.md")
 
