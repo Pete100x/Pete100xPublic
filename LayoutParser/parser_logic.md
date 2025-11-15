@@ -9,7 +9,7 @@ The parser must locate the correct `README.md` file inside the layout folder, re
 ```python
 import os
 
-BOARD_NAME = "Teensy32"  # Layout folder name, this is an example README.md board in same named folder
+BOARD_NAME = "Teensy32"  # Layout folder name, this is an example README.md board in a same named folder
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # e.g. LayoutParser/
 BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Project root
@@ -49,8 +49,16 @@ import re
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+BOARD_NAME = "Teensy32"  # Layout folder name, this is an example README.md board in a same named folder
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # e.g. LayoutParser/
+BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Project root
 
+README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
+OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
+
+print("README_PATH:", README_PATH)
+assert os.path.exists(README_PATH), "README.md not found!"
 print(f"📂 Board: {BOARD_NAME}")
 print(f"📄 Reading from: {README_PATH}")
 print(f"📝 Writing to: {OUTPUT_PATH}")
@@ -120,6 +128,50 @@ D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND
   - `PinInOrOut = OUTPUT`
   - `BoardLocation = Right`
 
+### 🔹 Pin direction logic: `PinInOrOut`
+
+The parser determines whether a pin is used as an input or output based on the arrow symbol and its position relative to the usage marker (`■`). The logic differs depending on whether the pin is on the **left**, **right**, or **vertical** side of the layout.
+
+#### Horizontal layout
+
+- **Left side pin** (arrow on the left):
+  - `←` before `■` → `Output`
+  - `→` before `■` → `Input`
+
+- **Right side pin** (arrow on the right):
+  - `→` after `■` → `Output`
+  - `←` after `■` → `Input`
+
+#### Vertical layout (special case)
+
+> ⚠️ In vertical layouts, arrows (`↑`, `↓`) must appear on the **same line** as the pin label or usage marker (`■`).  
+> This ensures the parser can associate the direction with the correct pin.  
+> Arrows placed above or below the pin line are not supported and will be ignored.
+
+- `↓` on the same line → `Input`
+- `↑` on the same line → `Output`
+
+#### Result field
+
+```python
+"PinInOrOut": "Output"  # or "Input", or "Unknown"
+```
+
+#### Examples
+
+```
+D0/RX1 ← │ ■ D0
+→ PinInOrOut = Output
+
+D1 │ ■ D1 → TX1
+→ PinInOrOut = Output
+
+■ A0 ↑
+→ PinInOrOut = Output
+
+■ A1 ↓
+→ PinInOrOut = Input
+```
 
 ## 🔸 Visuaalisen kohinan suodatus (`VISUAL_NOISE`)
 
