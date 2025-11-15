@@ -12,7 +12,6 @@ README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
 OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
 
 print("README_PATH:", README_PATH)
-
 PIN_STATE = {
     "□": "Free pin",
     "■": "Used pin",
@@ -83,45 +82,46 @@ def debug_parse_line(line, pin_line):
     results = []
     parts = [s.strip() for s in re.split(r"[│╎]", line)]
     if len(parts) < 3:
+        print(f"PinLine {pin_line}: skipped (not enough parts)")
         return results
 
     left_segment = parts[0]  # D0/RX1 ←
     middle_segment = parts[1]  # □ D0         VUSB □ → AGND □
     right_segment = parts[2]  # → AGND
 
+    left_block = extract_block(left_segment, "Left", left_segment)
+    right_block = extract_block(right_segment, "Right", right_segment)
 
-    # Etsi kaikki symbolit keskeltä
-    pin_fragments = re.findall(r"[A-Za-z0-9./#!~]+(?:\s*[" + "".join(PIN_STATE.keys()) + r"])(?:\s*[←→])?", middle_segment)
 
-    # Vasemman lohkon pinni = ensimmäinen fragmentti
-    if pin_fragments:
-        left_pinni = pin_fragments[0]
-        left_block = extract_block(left_pinni, "Left", left_segment)
-        if left_block:
-            left_block["PinLine"] = pin_line
-            results.append(left_block)
+    if left_block:
+        print(f"PinLine {pin_line} [Left]:")
+        for k, v in left_block.items():
+            print(f"  {k}: {v}")
+        results.append({
+            "PinLine": pin_line,
+            **left_block
+        })
 
-    # Oikean lohkon pinni = viimeinen fragmentti
-    if len(pin_fragments) > 1:
-        right_pinni = pin_fragments[-1]
-        right_block = extract_block(right_pinni, "Right", right_segment)
-        if right_block:
-            right_block["PinLine"] = pin_line
-            results.append(right_block)
+    if right_block:
+        print(f"PinLine {pin_line} [Right]:")
+        for k, v in right_block.items():
+            print(f"  {k}: {v}")
+        results.append({
+            "PinLine": pin_line,
+            **right_block
+        })
 
-    # Inside = kaikki fragmentit keskeltä, jotka eivät ole ekat tai vikat
-    inside_fragments = pin_fragments[1:-1] if len(pin_fragments) > 2 else []
-    left_label = left_block["PinLabel"] if "left_block" in locals() and left_block else None
-    right_label = right_block["PinLabel"] if "right_block" in locals() and right_block else None
+    left_label = left_block["PinLabel"] if left_block else None
+    right_label = right_block["PinLabel"] if right_block else None
 
-    for frag in inside_fragments:
-        block = extract_block(frag, "Inside", frag)
-        if block and block["PinLabel"] not in [left_label, right_label]:
-            block["PinLine"] = pin_line
-            results.append(block)
+    inside_blocks = extract_inside_blocks(middle_segment, pin_line, left_label, right_label)
+    for block in inside_blocks:
+        print(f"PinLine {pin_line} [Inside]:")
+        for k, v in block.items():
+            print(f"  {k}: {v}")
+        results.append(block)
 
     return results
-
 
 def generate_markdown_table(results):
     lines = []
