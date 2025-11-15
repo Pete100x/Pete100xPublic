@@ -167,35 +167,35 @@ def main():
 - Inside-pinnit tunnistetaan vain jos ne eivät ole reunoilta
 - Kaikki kentät nimetään loogisesti ja semanttisesti
 
-## 🔸 Config.h generointi: CodeFunction → PinLabel
+## 🔸 Config.h generation: CodeFunction → PinLabel
 
-Kun käyttäjä muokkaa layoutia (`README.md`) ja merkitsee pinnin käytetyksi (`■`), voidaan generoida `#define`-rivi `config.h`-tiedostoon.
+When the user edits the layout (`README.md`) and marks a pin as used (`■`), a `#define` line can be generated for the `config.h` file.
 
-### 🔹 Generoinnin ehdot
+### 🔹 Generation conditions
 
 - `PinStatus == "Used pin"`
-- `CodeFunction` on annettu
-- `PinLabel` on tunnistettu
+- `CodeFunction` is provided
+- `PinLabel` is recognized
 
-### 🔹 Esimerkki layoutista
+### 🔹 Layout example
 
 ```
 D0/RX1 ← │ ■ D0
 ```
 
-→ Parseri tunnistaa:
+→ Parser detects:
 
 - `PinLabel = D0`
 - `CodeFunction = D0/RX1`
 - `PinStatus = Used pin`
 
-→ Generoitu rivi `config.h`-tiedostoon: `#define RX1 D0`
+→ Generated line for `config.h`: `#define RX1 D0`
 
-> Huom: Jos `CodeFunction` sisältää useita nimiä (`D0/RX1`), voidaan käyttää viimeistä (`RX1`) tai kaikkia, riippuen strategiasta.
+> Note: If `CodeFunction` contains multiple names (`D0/RX1`), the last one (`RX1`) or all of them can be used, depending on the strategy.
 
 ---
 
-### 🔹 Funktio: `generate_config_defines(results)`
+### 🔹 Function: `generate_config_defines(results)`
 
 ```python
 def generate_config_defines(results):
@@ -208,15 +208,14 @@ def generate_config_defines(results):
     return defines
 ```
 
-- Palauttaa listan `#define`-rivejä
-- Voidaan kirjoittaa tiedostoon `config.h` tai `BOARD_NAME_config.h`
-- Tukee useita nimiä per pinni
+- Returns a list of `#define` lines
+- Can be written to `config.h` or `BOARD_NAME_config.h`
+- Supports multiple names per pin
 
 ---
 
-### 🔹 Tuleva laajennusmahdollisuus
+### 🔹 Future extension ideas
 
-- Tuki `#ifdef BOARD_NAME`
-- Kommentit layoutista: `// Pin D0 used for RX1`
-- Automaattinen generointi kaikille layout-kansioille
-
+- Support for `#ifdef BOARD_NAME`
+- Layout-based comments: `// Pin D0 used for RX1`
+- Automatic generation for all layout folders
