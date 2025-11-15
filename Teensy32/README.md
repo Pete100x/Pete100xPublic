@@ -32,12 +32,12 @@
                                                                           
                                   BOTTOM SIDE                            
                                 ┏╍╍╍╍╍╍╍╍╍╍╍╍╍┓                          
-                                ╎ ◊ ◊   ◊   ◊ ╎   #!1 Cut between pads if using external power for USB Device mode
-                                ╎ ○-○   ○   ○ ╎   #!2 Add 150μF Capacitor between pads for USB host mode          
-                                ╎ VUSB  150μF ╎   #!3 USB Data- and Data+
-                                ╎  #!1   #!2  ╎   #!4 Only 3.3V on Pins A10-A13(Pins A10-A11 and A12-A13 feature differential amplifiers)
-                                ╎   ◊     ◊   ╎   #!5 CAN Bus Transmit and Recieve                        
-                                ╎ D-○ #!3 ○D+ ╎   #!6 When using pin D13 as an input, ensure that the external signal can drive the LED when it is logic HIGH. Do not use pinMode INPUT_PULLUP with pin D13. 
+                                ╎ ◊ ◊   ◊   ◊ ╎   
+                                ╎ ○-○   ○   ○ ╎   
+                                ╎ VUSB  150μF ╎   
+                                ╎  #!1   #!2  ╎   
+                                ╎   ◊     ◊   ╎   
+                                ╎ D-○ #!3 ○D+ ╎    
                                 ╎  #!4   #!4  ╎                          
                          A13 ←↧ ╎◊○ A13 A12 ○◊╎ ↧→ A12                   
                         3.3V ←↧ ╎ ○ 3V3 GND ○ ╎ ↧→ GND                   
@@ -47,6 +47,14 @@
                 D30/A19/SDA1 ←↧ ╎ ○ D30 D27 ○ ╎ ↧→ D26/A15               
                 D29/A18/SCL1 ←↧ ╎ ○ D29 D28 ○ ╎ ↧→ D26/A15               
                                 ┗╍╍╍╍╍╍╍╍╍╍╍╍╍┛                          
+
+
+                                #!1 Cut between pads if using external power for USB Device mode
+                                #!2 Add 150μF Capacitor between pads for USB host mode          
+                                #!3 USB Data- and Data+
+                                #!4 Only 3.3V on Pins A10-A13(Pins A10-A11 and A12-A13 feature differential amplifiers)
+                                #!5 CAN Bus Transmit and Recieve                        
+                                #!6 When using pin D13 as an input, ensure that the external signal can drive the LED when it is logic HIGH. Do not use pinMode INPUT_PULLUP with pin D13.
 
 
                                 □ = Free pin (default)  
