@@ -216,9 +216,35 @@ def main():
     print(f"\n✅ Table written to: {OUTPUT_PATH}")
 ```
 
-### Add debug function!!!
+### 🔸 Debug mode: console and RawFragment
 
-- Add Debug function for either console or make and extra table field for raw output
+The parser supports two debug options to aid development and troubleshooting:
+
+```python
+DEBUG_CONSOLE = True       # Print parsing details to console
+DEBUG_RAW_FRAGMENT = True  # Add RawFragment field to results
+```
+
+#### RawFragment field
+
+If enabled, the parser adds a `RawFragment` field to each result dictionary:
+
+```python
+"RawFragment": "← │ ■ D0"
+```
+
+This helps trace how each line was interpreted.
+
+#### Console output
+
+If `DEBUG_CONSOLE = True`, the parser prints each line and its parsed components:
+
+```
+[DEBUG] Line 42: D0/RX1 ← │ ■ D0
+→ PinLabel: D0, CodeFunction: D0/RX1, PinStatus: Used pin, Direction: Output
+```
+
+These options can be toggled 
 
 ### 🧩 Parser strategy (Work In Progress)
 
