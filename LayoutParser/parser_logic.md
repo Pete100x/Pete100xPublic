@@ -38,7 +38,7 @@ project/
 - This prevents errors when running the parser from different working directories (e.g. VSCode, CLI)
 
 
-## 🔹 Parses basic setup
+### 🔹 Parses basic setup
 
 Every parser needs these lines at the beginning
 
@@ -64,7 +64,7 @@ print(f"📄 Reading from: {README_PATH}")
 print(f"📝 Writing to: {OUTPUT_PATH}")
 ```
 
-## 🔹 Segmentlogic
+### 🔹 Segmentlogic
 
 - **When reading the Unicode layout from README.md the Layout is divided into three sections**
 
@@ -78,14 +78,14 @@ print(f"📝 Writing to: {OUTPUT_PATH}")
 - Right section structure:
   - `PinLabel Symbol │ → CodeFunction`
   - Arrow `→`: away from pin → `PinInOrOut = OUTPUT`
-  - Symboli + Label = pin recognition
+  - Symbol + Label = pin recognition
   - `BoardLocation = Right`
 
 - Middle section (`Inside`):
-  - Only if there is a Symbo + Label which does not belong to edges
+  - Only if there is a Symbol + Label which does not belong to edges
   - `BoardLocation = Inside`
 
-## 🔸 Labels for Table output
+### 🔸 Labels for Table output
 
 - `PinLine`: Line number where is a pin in README.md
 - `BoardLocation`: Left / Right / Inside tells parser where the location of a Pin is relative to Board Edge which are marked with │ or ╎
@@ -93,10 +93,10 @@ print(f"📝 Writing to: {OUTPUT_PATH}")
 - `PinLabel`: This is the name of the pin, it may contain possible Pin functions to help to choose the possible Function like (D0, A0, RX/TX) it may also contain Power and Ground markings
 - `PinInOrOut`: INPUT / OUTPUT depends of the chosen direction relative to pin it's closest to marked with arrows
 - `PinStatus`: The symbol used tells teh status of the pin if it's in use or if there's some special function or to be aware of probable issues
-- `HasPWM`: `✓` if the symbol has `~` it's telling that it has PWM capability if needed
-- `RawFragment`: Original parsed board fragment for debugging if the parser is reading pins correctly and the regex is working
+- `HasPWM`: `✓` If the symbol has `~` next to it, it's telling that it has PWM capability if needed
+- `RawFragment`: If Debug enabled else not created. Original parsed board fragment for debugging if the parser is reading pins correctly and the regex is working
 
-## 🔸 These are the Symbols for pins that boards have (`PIN_STATE`)
+### 🔸 These are the Symbols for pins that boards have (`PIN_STATE`)
 
 - `□`: Free pin
 - `■`: Used pin
@@ -108,15 +108,15 @@ print(f"📝 Writing to: {OUTPUT_PATH}")
 - `○`: Pad (solder/contact area)
 - `•`: Pad in use (solder/contact area)
 
-## 🔸 Example line for parser
+### 🔸 Example line for parser
 
-D0/RX1        ← │ □ D0         VUSB □ → AGND □ │ → AGND
-
+D0/RX1        ← │~□ D0         VUSB □ → AGND □ │ → AGND
 
 - Left Section:
   - `CodeFunction = D0/RX1`
   - `PinLabel = D0`
   - `PinInOrOut = OUTPUT`
+  - `HasPWM`
   - `BoardLocation = Left`
 
 - Middle section:
@@ -182,14 +182,14 @@ D1 │ ■ D1 → TX1
 → PinInOrOut = Input
 ```
 
-## 🔸 There might be some visual elements embedded in the middle (`VISUAL_NOISE`)
+### 🔸 There might be some visual elements embedded in the middle (`VISUAL_NOISE`)
 
 - Removed from middle segment before fragmentation
 - Noise symbols:
   - `│`, `└`, `─`, `┘`, `╱`, `╲`, `━`, `┐`, `┌`, `┬`, `┼`, `┤`, `├`, `┴`
 - Also any number, letter or text here without a pin is considered as noise
 
-## 🔸 Modular Markdown Table Generation 
+### 🔸 Modular Markdown Table Generation 
 ```python
 def generate_markdown_table(results, board_name, output_path):
     with open(output_path, "w", encoding="utf-8") as f:
@@ -199,7 +199,7 @@ def generate_markdown_table(results, board_name, output_path):
         for r in results:
             f.write(f"| {r['PinLine']} | {r['BoardLocation']} | {r['CodeFunction']} | {r['PinInOrOut']} | {r['PinStatus']} | {'✓' if r['HasPWM'] else ''} | {r['PinLabel']} |\n")
 ```
-## This is the (main) function
+### This is the (main) function
 
 ```python
 def main():
@@ -220,18 +220,21 @@ def main():
     print(f"\n✅ Table written to: {OUTPUT_PATH}")
 ```
 
-## Add debug function!!!
+### Add debug function!!!
 
+- Add Debug function for either console or make and extra table field for raw output
 
-## 🧩 Parser strategy (Work In Progress)
+### 🧩 Parser strategy (Work In Progress)
 
 - Split the line into three sctions Left, Middle, Right
 - Symnols and labels are collected from the middle
 - Collectiong Function for example (D0/RX1) from text and then PinInput or Output are collected from the edges from arrow symbol
 - Inside Pins are recognised by up and down arrows
 - All the table fields are named logically and semantically
+- If vertical Pin lines (Usually in the middle section) might be a good idea to mark somehow that the pin function is separated in grude table outside the board layout. This is hard if there's little space to write more than state, direction and PWM
+  Probably a new symbol and numer to look for table outside and to get the parser connect these together. This needs to be tested. It might then set up and down arrows obsolete.
 
-## 🔸 Config.h generation: CodeFunction → PinLabel
+### 🔸 Config.h generation: CodeFunction → PinLabel
 
 When the user edits the layout (`README.md`) and marks a pin as used (`■`), a `#define` line can be generated for the `config.h` file.
 
