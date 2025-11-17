@@ -169,17 +169,13 @@ The parser determines whether a pin is used as an input or output based on the a
 #### Examples
 
 ```
-D0/RX1 ← │ ■ D0
-→ PinInOrOut = Output
+D0/RX1 ← │ ■ D0, PinInOrOut = Output
 
-D1 │ ■ D1 → TX1
-→ PinInOrOut = Output
+D1 │ ■ D1 → TX1, PinInOrOut = Output
 
-■ A0 ↑
-→ PinInOrOut = Output
+■ A0 ↑, PinInOrOut = Output
 
-■ A1 ↓
-→ PinInOrOut = Input
+■ A1 ↓, PinInOrOut = Input
 ```
 
 ### 🔸 There might be some visual elements embedded in the middle (`VISUAL_NOISE`)
