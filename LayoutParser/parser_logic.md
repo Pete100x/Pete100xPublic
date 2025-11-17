@@ -19,6 +19,7 @@ OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
 
 print("README_PATH:", README_PATH)
 assert os.path.exists(README_PATH), "README.md not found!"
+
 ```
 
 ### 🔸 Example folder structure
@@ -62,6 +63,9 @@ assert os.path.exists(README_PATH), "README.md not found!"
 print(f"📂 Board: {BOARD_NAME}")
 print(f"📄 Reading from: {README_PATH}")
 print(f"📝 Writing to: {OUTPUT_PATH}")
+
+DEBUG_CONSOLE = True       # Prints all the lines from beginning to console
+DEBUG_RAW_FRAGMENT = True  #Adds RawFragment fiels to table
 ```
 
 ### 🔹 Segmentlogic
