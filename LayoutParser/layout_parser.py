@@ -12,6 +12,10 @@ README_PATH = os.path.join(BASE_DIR, BOARD_NAME, "README.md")
 OUTPUT_PATH = os.path.join(BASE_DIR, BOARD_NAME, f"{BOARD_NAME}.md")
 
 print("README_PATH:", README_PATH)
+DEBUG_CONSOLE = True       # Prints all the lines from beginning to console
+DEBUG_RAW_FRAGMENT = True  #Adds RawFragment fiels to table
+
+
 PIN_STATE = {
     "□": "Free pin",
     "■": "Used pin",
@@ -91,7 +95,6 @@ def debug_parse_line(line, pin_line):
 
     left_block = extract_block(left_segment, "Left", left_segment)
     right_block = extract_block(right_segment, "Right", right_segment)
-
 
     if left_block:
         print(f"PinLine {pin_line} [Left]:")
