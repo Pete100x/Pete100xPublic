@@ -30,6 +30,32 @@ PIN_STATE = {
 
 VISUAL_NOISE = r"[│└─┘╱╲━┐┌┬┼┤├┴]"
 
+def is_pin_line(line):
+    symbols = set(line.strip())
+    return any(sym in symbols for sym in PIN_STATE) and not any(sym in line for sym in ["→", "←", "↑", "↓", "="])
+
+
+def parse_metadata_line(line):
+    pattern = r"(←|→|↑|↓)?\s*□\s*(\d+)\s*=\s*(\w+)"
+    matches = re.findall(pattern, line)
+    metadata = []
+    for arrow, number, label in matches:
+        direction = {
+            "←": "Output",
+            "→": "Input",
+            "↑": "Output",
+            "↓": "Input"
+        }.get(arrow, "Unknown")
+        metadata.append({
+            "PinLabel": label,
+            "CodeFunction": number,
+            "PinStatus": "Used pin",
+            "PinInOrOut": direction,
+            "RawLine": line,
+            "RawFragment": f"{arrow} □ {number} = {label}"
+        })
+    return metadata
+	
 def extract_block(segment, board_location, code_function):
     symbol = next((c for c in segment if c in PIN_STATE), None)
     if not symbol:
@@ -123,6 +149,47 @@ def debug_parse_line(line, pin_line):
         for k, v in block.items():
             print(f"  {k}: {v}")
         results.append(block)
+
+
+    layout_lines = extract_block(lines)
+    metadata_lines = extract_inside_block(lines)
+    
+    parsed_list = []
+    
+    for i, line in enumerate(layout_lines):
+        parsed = parse_layout_line(i + 1, line)
+        if parsed:
+            debug_parse_line(i + 1, line, parsed)
+            parsed_list.append(parsed)
+    
+    for i, line in enumerate(metadata_lines):
+        entries = parse_metadata_line(line)
+        for entry in entries:
+            debug_parse_line(i + 1, line, entry)
+            parsed_list.append(entry)
+
+    if not DEBUG_CONSOLE:
+        return
+    
+    # Ohitetaan rivit, joissa ei ole mitään tunnistettua
+    if not parsed.get("PinLabel") and not parsed.get("CodeFunction") and not parsed.get("PinStatus"):
+        return
+    
+    print(f"[DEBUG] Line {line_number}: {raw_line}")
+    print(f"  RawFragment  : {parsed.get('RawFragment', '')}")
+    print(f"  PinLabel     : {parsed.get('PinLabel', '')}")
+    print(f"  CodeFunction : {parsed.get('CodeFunction', '')}")
+    print(f"  PinStatus    : {parsed.get('PinStatus', '')}")
+    print(f"  PinInOrOut   : {parsed.get('PinInOrOut', '')}")
+    
+    # Laajennettavissa myöhemmin:
+    if "Segment" in parsed:
+        print(f"  Segment      : {parsed['Segment']}")
+    if "PinLine" in parsed:
+        print(f"  PinLine      : {parsed['PinLine']}")
+    if "PWM" in parsed:
+        print(f"  PWM          : {parsed['PWM']}")
+    
 
     return results
 
