@@ -31,8 +31,8 @@
        A9/D63   ←  │ □ A9/D63                  RX2/D17 □ │  →   D17
        A10/D64  ←  │ □ A10/D64            TX1/INT1/D18 □ │  →   D18
        A11/D65  ←  │ □ A11/D65            RX1/INT0/D19 □ │  →   D19
-       A12/D66  ←  │ □ A12/D66        I2C-SDA/INT3/D20 □ │  →   D20
-       A13/D67  ←  │ □ A13/D67        I2C-SCL/INT2/D21 □ │  →   D21
+       A12/D66  ←  │ □ A12/D66            SDA/INT3/D20 □ │  →   D20
+       A13/D67  ←  │ □ A13/D67            SCL/INT2/D21 □ │  →   D21
        A14/D68  ←  │ □ A14/D68                           │
        A15/D69  ←  │ □ A15/D69     RST SCK MISO          │    ← □ MISO = MISO    ← □ 5V = 5V     
                    │           ICSP □   □   □            │    ← □ SCK = SCK      ← □ MOSI = MOSI     
